@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { COMMENT_CHECKER_WIDGET_KEY, type CommentCheckerUiState, getCommentCheckerWidgetLines } from "../src/ui.ts";
 
 describe("getCommentCheckerWidgetLines", () => {
-	it("#given loading state #when formatting widget #then shows setup progress without footer data", () => {
+	it("#given loading state #when formatting widget #then hides setup progress", () => {
 		// given
 		const state: CommentCheckerUiState = {
 			status: "loading",
@@ -15,10 +15,10 @@ describe("getCommentCheckerWidgetLines", () => {
 
 		// then
 		expect(COMMENT_CHECKER_WIDGET_KEY).toBe("pi-comment-checker");
-		expect(lines).toEqual(["Comment checker", "loading binary..."]);
+		expect(lines).toBeUndefined();
 	});
 
-	it("#given missing binary state #when formatting widget #then shows install guidance", () => {
+	it("#given missing binary state #when formatting widget #then hides install guidance", () => {
 		// given
 		const state: CommentCheckerUiState = {
 			status: "missing",
@@ -30,10 +30,10 @@ describe("getCommentCheckerWidgetLines", () => {
 		const lines = getCommentCheckerWidgetLines(state);
 
 		// then
-		expect(lines).toEqual(["Comment checker", "binary missing", "install: npm install or senpi package reload"]);
+		expect(lines).toBeUndefined();
 	});
 
-	it("#given warning state #when formatting widget #then shows checked files and warning count", () => {
+	it("#given warning state #when formatting widget #then shows minimal detected-comment notice", () => {
 		// given
 		const state: CommentCheckerUiState = {
 			status: "warning",
@@ -48,13 +48,7 @@ describe("getCommentCheckerWidgetLines", () => {
 		const lines = getCommentCheckerWidgetLines(state);
 
 		// then
-		expect(lines).toEqual([
-			"Comment checker",
-			"2 warning(s)",
-			"checked: src/a.ts, src/b.ts",
-			"warning: src/a.ts",
-			"warning: src/b.ts",
-		]);
+		expect(lines).toEqual(["comment-checker: comment detected", "src/a.ts", "src/b.ts"]);
 	});
 
 	it("#given clean state #when formatting widget #then hides stale widget", () => {
@@ -63,6 +57,22 @@ describe("getCommentCheckerWidgetLines", () => {
 			status: "clean",
 			checkedFiles: ["src/a.ts"],
 			warnings: [],
+		};
+
+		// when
+		const lines = getCommentCheckerWidgetLines(state);
+
+		// then
+		expect(lines).toBeUndefined();
+	});
+
+	it("#given checker error state #when formatting widget #then hides error details", () => {
+		// given
+		const state: CommentCheckerUiState = {
+			status: "error",
+			checkedFiles: ["src/a.ts"],
+			warnings: [],
+			errorMessage: "failed",
 		};
 
 		// when

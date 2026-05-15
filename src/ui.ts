@@ -21,29 +21,11 @@ export type WidgetSetter = (
 ) => void;
 
 export function getCommentCheckerWidgetLines(state: CommentCheckerUiState): string[] | undefined {
-	if (state.status === "idle" || state.status === "clean") return undefined;
+	if (state.status !== "warning" || state.warnings.length === 0) return undefined;
 
-	const lines = ["Comment checker"];
-	if (state.status === "loading") {
-		lines.push("loading binary...");
-		return lines;
-	}
-	if (state.status === "missing") {
-		lines.push("binary missing", "install: npm install or senpi package reload");
-		return lines;
-	}
-	if (state.status === "error") {
-		lines.push("checker error");
-		if (state.errorMessage) lines.push(state.errorMessage);
-		return lines;
-	}
-
-	lines.push(`${state.warnings.length} warning(s)`);
-	if (state.checkedFiles.length > 0) lines.push(`checked: ${state.checkedFiles.join(", ")}`);
-	for (const warning of state.warnings.slice(0, 6)) {
-		lines.push(`warning: ${warning.filePath}`);
-	}
-	if (state.warnings.length > 6) lines.push(`... ${state.warnings.length - 6} more`);
+	const filePaths = [...new Set(state.warnings.map((warning) => warning.filePath))];
+	const lines = ["comment-checker: comment detected", ...filePaths.slice(0, 6)];
+	if (filePaths.length > 6) lines.push(`... ${filePaths.length - 6} more`);
 	return lines;
 }
 

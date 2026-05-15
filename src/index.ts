@@ -66,12 +66,6 @@ export function createCommentCheckerToolResultHandler(deps: CommentCheckerHandle
 		const requests = extractCommentCheckRequests(event);
 		if (requests.length === 0) return undefined;
 
-		syncCommentCheckerWidget(ctx.ui.setWidget, {
-			status: "loading",
-			checkedFiles: requests.map((request) => request.filePath),
-			warnings: [],
-		});
-
 		const checkedFiles: string[] = [];
 		const warnings: Array<{ filePath: string; message: string }> = [];
 		const runner = deps.run ?? ((input: CommentCheckerHookInput) => runCommentChecker(input));

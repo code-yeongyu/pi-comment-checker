@@ -19,7 +19,7 @@ function makeContext(): ExtensionContextLike & { widgetCalls: unknown[] } {
 }
 
 describe("createCommentCheckerToolResultHandler", () => {
-	it("#given apply_patch metadata warning #when handling tool result #then appends checker warning and updates widget", async () => {
+	it("#given apply_patch metadata warning #when handling tool result #then appends checker warning and shows minimal detected-comment widget", async () => {
 		// given
 		const event: ToolResultLike = {
 			toolName: "apply_patch",
@@ -73,14 +73,12 @@ describe("createCommentCheckerToolResultHandler", () => {
 			{ type: "text", text: "update: src/example.ts" },
 			{ type: "text", text: "\n\nCOMMENT DETECTED" },
 		]);
-		expect(ctx.widgetCalls.at(-1)).toEqual([
-			"pi-comment-checker",
-			["Comment checker", "1 warning(s)", "checked: src/example.ts", "warning: src/example.ts"],
-			{ placement: "aboveEditor" },
+		expect(ctx.widgetCalls).toEqual([
+			["pi-comment-checker", ["comment-checker: comment detected", "src/example.ts"], { placement: "aboveEditor" }],
 		]);
 	});
 
-	it("#given missing binary #when handling write result #then shows setup guidance without changing tool output", async () => {
+	it("#given missing binary #when handling write result #then hides setup guidance without changing tool output", async () => {
 		// given
 		const handler = createCommentCheckerToolResultHandler({
 			run: async () => ({
@@ -106,10 +104,6 @@ describe("createCommentCheckerToolResultHandler", () => {
 
 		// then
 		expect(result).toBeUndefined();
-		expect(ctx.widgetCalls.at(-1)).toEqual([
-			"pi-comment-checker",
-			["Comment checker", "binary missing", "install: npm install or senpi package reload"],
-			{ placement: "aboveEditor" },
-		]);
+		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
 	});
 });
