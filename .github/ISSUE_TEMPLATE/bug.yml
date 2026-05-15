@@ -1,0 +1,48 @@
+name: Bug Report
+description: Report broken comment checking, apply_patch handling, or widget behavior
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep this concise. Include the mutation tool payload, pi/senpi command, and settings needed to reproduce.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Include exact output/errors.
+    validations:
+      required: true
+
+  - type: textarea
+    id: payload
+    attributes:
+      label: Tool payload
+      description: Paste the minimal write/edit/multiedit/apply_patch payload that reproduces the issue.
+      render: json
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: pi-comment-checker version
+      placeholder: 0.1.0
+    validations:
+      required: false
+
+  - type: input
+    id: pi-version
+    attributes:
+      label: pi/senpi version
+      placeholder: 0.74.0
+    validations:
+      required: false

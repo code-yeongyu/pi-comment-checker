@@ -1,0 +1,6 @@
+pi-comment-checker
+
+This package ports the oh-my-openagent comment-checker hook into a standalone
+pi-coding-agent extension repository.
+
+The extension targets the public pi-coding-agent extension API.
