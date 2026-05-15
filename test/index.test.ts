@@ -106,4 +106,129 @@ describe("createCommentCheckerToolResultHandler", () => {
 		expect(result).toBeUndefined();
 		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
 	});
+
+	it("#given write warning #when handling tool result #then appends checker warning and shows minimal detected-comment widget", async () => {
+		// given
+		const event: ToolResultLike = {
+			toolName: "write",
+			input: {
+				filePath: "src/example.ts",
+				content: "// explain value\nconst value = 1;\n",
+			},
+			content: [{ type: "text", text: "wrote src/example.ts" }],
+			isError: false,
+		};
+		const handler = createCommentCheckerToolResultHandler({
+			run: async () => ({
+				status: "warning",
+				message: "COMMENT DETECTED",
+				binaryPath: "/bin/comment-checker",
+				exitCode: 2,
+			}),
+		});
+		const ctx = makeContext();
+
+		// when
+		const result = await handler(event, ctx);
+
+		// then
+		expect(result?.content).toEqual([
+			{ type: "text", text: "wrote src/example.ts" },
+			{ type: "text", text: "\n\nCOMMENT DETECTED" },
+		]);
+		expect(ctx.widgetCalls).toEqual([
+			["pi-comment-checker", ["comment-checker: comment detected", "src/example.ts"], { placement: "aboveEditor" }],
+		]);
+	});
+
+	it("#given write clean #when handling tool result #then leaves tool output unchanged and keeps TUI hidden", async () => {
+		// given
+		const event: ToolResultLike = {
+			toolName: "write",
+			input: {
+				filePath: "src/example.ts",
+				content: "const value = 1;\n",
+			},
+			content: [{ type: "text", text: "wrote src/example.ts" }],
+			isError: false,
+		};
+		const handler = createCommentCheckerToolResultHandler({
+			run: async () => ({
+				status: "pass",
+				message: "",
+				binaryPath: "/bin/comment-checker",
+				exitCode: 0,
+			}),
+		});
+		const ctx = makeContext();
+
+		// when
+		const result = await handler(event, ctx);
+
+		// then
+		expect(result).toBeUndefined();
+		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
+	});
+
+	it("#given edit warning #when handling tool result #then appends checker warning and shows minimal detected-comment widget", async () => {
+		// given
+		const event: ToolResultLike = {
+			toolName: "edit",
+			input: {
+				filePath: "src/example.ts",
+				oldString: "const value = 1;\n",
+				newString: "// explain value\nconst value = 2;\n",
+			},
+			content: [{ type: "text", text: "edited src/example.ts" }],
+			isError: false,
+		};
+		const handler = createCommentCheckerToolResultHandler({
+			run: async () => ({
+				status: "warning",
+				message: "COMMENT DETECTED",
+				binaryPath: "/bin/comment-checker",
+				exitCode: 2,
+			}),
+		});
+		const ctx = makeContext();
+
+		// when
+		const result = await handler(event, ctx);
+
+		// then
+		expect(result?.content).toEqual([
+			{ type: "text", text: "edited src/example.ts" },
+			{ type: "text", text: "\n\nCOMMENT DETECTED" },
+		]);
+		expect(ctx.widgetCalls).toEqual([
+			["pi-comment-checker", ["comment-checker: comment detected", "src/example.ts"], { placement: "aboveEditor" }],
+		]);
+	});
+
+	it("#given checker error #when handling tool result #then leaves tool output unchanged and keeps TUI hidden", async () => {
+		// given
+		const event: ToolResultLike = {
+			toolName: "write",
+			input: {
+				filePath: "src/example.ts",
+				content: "const value = 1;\n",
+			},
+			content: [{ type: "text", text: "wrote src/example.ts" }],
+			isError: false,
+		};
+		const handler = createCommentCheckerToolResultHandler({
+			run: async () => ({
+				status: "error",
+				message: "checker crashed",
+			}),
+		});
+		const ctx = makeContext();
+
+		// when
+		const result = await handler(event, ctx);
+
+		// then
+		expect(result).toBeUndefined();
+		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
+	});
 });
