@@ -19,7 +19,7 @@ function makeContext(): ExtensionContextLike & { widgetCalls: unknown[] } {
 }
 
 describe("createCommentCheckerToolResultHandler", () => {
-	it("#given apply_patch metadata warning #when handling tool result #then appends checker warning and shows minimal detected-comment widget", async () => {
+	it("#given apply_patch metadata warning #when handling tool result #then appends checker warning and keeps widget hidden", async () => {
 		// given
 		const event: ToolResultLike = {
 			toolName: "apply_patch",
@@ -73,9 +73,7 @@ describe("createCommentCheckerToolResultHandler", () => {
 			{ type: "text", text: "update: src/example.ts" },
 			{ type: "text", text: "\n\nCOMMENT DETECTED" },
 		]);
-		expect(ctx.widgetCalls).toEqual([
-			["pi-comment-checker", ["comment-checker: comment detected", "src/example.ts"], { placement: "aboveEditor" }],
-		]);
+		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
 	});
 
 	it("#given missing binary #when handling write result #then hides setup guidance without changing tool output", async () => {
@@ -107,7 +105,7 @@ describe("createCommentCheckerToolResultHandler", () => {
 		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
 	});
 
-	it("#given write warning #when handling tool result #then appends checker warning and shows minimal detected-comment widget", async () => {
+	it("#given write warning #when handling tool result #then appends checker warning and keeps widget hidden", async () => {
 		// given
 		const event: ToolResultLike = {
 			toolName: "write",
@@ -136,9 +134,7 @@ describe("createCommentCheckerToolResultHandler", () => {
 			{ type: "text", text: "wrote src/example.ts" },
 			{ type: "text", text: "\n\nCOMMENT DETECTED" },
 		]);
-		expect(ctx.widgetCalls).toEqual([
-			["pi-comment-checker", ["comment-checker: comment detected", "src/example.ts"], { placement: "aboveEditor" }],
-		]);
+		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
 	});
 
 	it("#given write clean #when handling tool result #then leaves tool output unchanged and keeps TUI hidden", async () => {
@@ -170,7 +166,7 @@ describe("createCommentCheckerToolResultHandler", () => {
 		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
 	});
 
-	it("#given edit warning #when handling tool result #then appends checker warning and shows minimal detected-comment widget", async () => {
+	it("#given edit warning #when handling tool result #then appends checker warning and keeps widget hidden", async () => {
 		// given
 		const event: ToolResultLike = {
 			toolName: "edit",
@@ -200,9 +196,7 @@ describe("createCommentCheckerToolResultHandler", () => {
 			{ type: "text", text: "edited src/example.ts" },
 			{ type: "text", text: "\n\nCOMMENT DETECTED" },
 		]);
-		expect(ctx.widgetCalls).toEqual([
-			["pi-comment-checker", ["comment-checker: comment detected", "src/example.ts"], { placement: "aboveEditor" }],
-		]);
+		expect(ctx.widgetCalls).toEqual([["pi-comment-checker", undefined, { placement: "aboveEditor" }]]);
 	});
 
 	it("#given checker error #when handling tool result #then leaves tool output unchanged and keeps TUI hidden", async () => {

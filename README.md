@@ -15,7 +15,7 @@ This package is the standalone pi extension version of the `oh-my-openagent` / `
 | `multiedit` succeeds | checks the complete `edits` payload |
 | `apply_patch` succeeds with OMO metadata | checks each metadata file using `before` / `after`, skips deletes |
 | `apply_patch` succeeds without metadata | falls back to raw Codex patch parsing |
-| checker exits `2` | appends the warning message to the tool result and shows a minimal detected-comment TUI widget |
+| checker exits `2` | appends the warning message to the tool result and leaves the TUI hidden |
 | checker binary missing | leaves the TUI hidden and leaves tool output unchanged |
 | checker exits unexpectedly | leaves the TUI hidden and leaves tool output unchanged |
 
@@ -61,7 +61,7 @@ The extension uses an above-editor widget with key `pi-comment-checker`.
 |---|---|
 | Loading | hidden |
 | Missing binary | hidden |
-| Warning | `comment-checker: comment detected` plus warning file paths |
+| Warning | hidden |
 | Clean | widget hidden |
 
 It does not set or modify the footer.

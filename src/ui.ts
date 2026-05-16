@@ -20,13 +20,8 @@ export type WidgetSetter = (
 	options?: { placement?: "aboveEditor" | "belowEditor" },
 ) => void;
 
-export function getCommentCheckerWidgetLines(state: CommentCheckerUiState): string[] | undefined {
-	if (state.status !== "warning" || state.warnings.length === 0) return undefined;
-
-	const filePaths = [...new Set(state.warnings.map((warning) => warning.filePath))];
-	const lines = ["comment-checker: comment detected", ...filePaths.slice(0, 6)];
-	if (filePaths.length > 6) lines.push(`... ${filePaths.length - 6} more`);
-	return lines;
+export function getCommentCheckerWidgetLines(_state: CommentCheckerUiState): string[] | undefined {
+	return undefined;
 }
 
 export function syncCommentCheckerWidget(setWidget: WidgetSetter, state: CommentCheckerUiState): void {

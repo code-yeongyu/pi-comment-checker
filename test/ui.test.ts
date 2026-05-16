@@ -33,7 +33,7 @@ describe("getCommentCheckerWidgetLines", () => {
 		expect(lines).toBeUndefined();
 	});
 
-	it("#given warning state #when formatting widget #then shows minimal detected-comment notice", () => {
+	it("#given warning state #when formatting widget #then keeps widget hidden", () => {
 		// given
 		const state: CommentCheckerUiState = {
 			status: "warning",
@@ -48,7 +48,7 @@ describe("getCommentCheckerWidgetLines", () => {
 		const lines = getCommentCheckerWidgetLines(state);
 
 		// then
-		expect(lines).toEqual(["comment-checker: comment detected", "src/a.ts", "src/b.ts"]);
+		expect(lines).toBeUndefined();
 	});
 
 	it("#given clean state #when formatting widget #then hides stale widget", () => {
