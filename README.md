@@ -100,18 +100,25 @@ Shows binary availability and setup guidance.
 ## Development
 
 ```bash
-npm install
-npm test
-npm run typecheck
-npm run check
+bun install
+bun run test
+bun run typecheck
+bun run check
 npm pack --dry-run
 pi -e ./src/index.ts
+```
+
+Consumer / npm smoke:
+
+```bash
+npm ci
+npm test
 ```
 
 ## Branch rules and releases
 
 - `main` is protected by `.github/branch-ruleset.json`.
-- CI runs Node 20 and 22 on Ubuntu and macOS.
+- CI runs Bun 1.4.2 with Node 22 and 24 on Ubuntu and macOS, plus an npm-consumer job.
 - Releases are GitHub Releases tagged as `v<semver>`.
 - Publishing runs from the `publish` workflow after a GitHub Release is published.
 

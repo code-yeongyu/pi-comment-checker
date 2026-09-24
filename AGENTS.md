@@ -12,18 +12,19 @@ Conventions for human contributors and AI agents working on this repository.
 
 ## Commands
 
-- `npm install` — install dependencies.
-- `npm test` — run vitest once.
-- `npm run typecheck` — strict TypeScript check.
-- `npm run check` — type check + biome.
+- `bun install` — install dependencies (primary toolchain).
+- `bun run test` — run vitest once.
+- `bun run typecheck` — strict TypeScript check.
+- `bun run check` — type check + biome.
+- `npm ci && npm test` — consumer install + test (npm lockfile).
 - `npm pack --dry-run` — release package smoke test.
 - `pi -e ./src/index.ts` — load the extension into a local pi session for manual smoke testing.
 - `senpi -e ./src/index.ts` — load the extension into a local senpi session for manual smoke testing.
 
 ## Constraints
 
-- No Bun APIs. Runtime is Node only.
-- No dependency on pi-coding-agent internal modules outside the documented public extension API in `@mariozechner/pi-coding-agent`.
+- No Bun APIs. Runtime is Node only. Bun is the development and CI toolchain.
+- No dependency on pi-coding-agent internal modules outside the documented public extension API in `@earendil-works/pi-coding-agent`.
 - Keep `write`, `edit`, `multiedit`, and `apply_patch` support covered by tests.
 - `apply_patch` must support OMO-compatible metadata and raw Codex patch fallback.
 - Do not modify footer UI; use the `pi-comment-checker` above-editor widget only.
