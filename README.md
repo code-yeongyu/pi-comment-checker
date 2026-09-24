@@ -70,19 +70,23 @@ It does not set or modify the footer.
 
 The package targets the `pi` / `senpi` extension package system.
 
+This package is distributed from GitHub; the npm name is not published by this project.
+
 ```bash
-# 1. From npm (once published)
-pi install npm:pi-comment-checker
-
-# 2. From git
+# 1. From git
 pi install git:github.com/code-yeongyu/pi-comment-checker
+senpi install git:github.com/code-yeongyu/pi-comment-checker
 
-# 3. senpi settings.json
+# 2. senpi settings.json
 {
   "packages": [
     "git:github.com/code-yeongyu/pi-comment-checker"
   ]
 }
+
+# 3. Manual placement
+git clone https://github.com/code-yeongyu/pi-comment-checker ~/.pi/agent/extensions/pi-comment-checker
+cd ~/.pi/agent/extensions/pi-comment-checker && npm install
 
 # 4. Dev / one-shot test
 pi -e /path/to/pi-comment-checker/src/index.ts
