@@ -4,6 +4,8 @@
 
 ### Changed
 
+- Peer dependencies on `@earendil-works/pi-*` are `>=0.87.1` instead of `*`. 0.87.1 is the oldest pi the extension is verified against: typecheck and the full test suite pass with every `@earendil-works` package at 0.87.1.
+- CI: the Dependabot `bun.lock` refresh approves the CI run its own push starts, so the required checks attach to the pull request, and falls back to dispatching `ci.yml` if that run cannot be approved.
 - Docs: install from GitHub instead of npm.
 
 ## [0.1.1] - 2026-09-24
