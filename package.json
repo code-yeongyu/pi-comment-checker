@@ -53,13 +53,13 @@
 		"@code-yeongyu/comment-checker": "^0.8.2"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.5.14",
-		"@earendil-works/pi-ai": "0.87.1",
-		"@earendil-works/pi-coding-agent": "0.87.1",
-		"@types/node": "26.6.2",
+		"@biomejs/biome": "2.5.15",
+		"@earendil-works/pi-ai": "1.0.4",
+		"@earendil-works/pi-coding-agent": "1.0.4",
+		"@types/node": "26.6.4",
 		"@typescript/native-preview": "7.0.0-dev.20260707.2",
 		"typescript": "7.0.2",
-		"vitest": "5.0.1"
+		"vitest": "5.0.3"
 	},
 	"engines": {
 		"node": ">=22.19.0"
