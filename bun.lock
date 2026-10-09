@@ -5,7 +5,7 @@
     "": {
       "name": "pi-comment-checker",
       "dependencies": {
-        "@code-yeongyu/comment-checker": "^0.8.0",
+        "@code-yeongyu/comment-checker": "^0.8.2",
       },
       "devDependencies": {
         "@biomejs/biome": "2.5.14",
@@ -84,7 +84,17 @@
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.5.14", "", { "os": "win32", "cpu": "x64" }, "sha512-oJWmBhoHsnhUKIke+0gXDX0mltJrWHA1UyHsrTlXwX0TL64ilVZAo+TYZm97baecV0esBdpzy3k96q+09JaZUQ=="],
 
-    "@code-yeongyu/comment-checker": ["@code-yeongyu/comment-checker@0.8.0", "", { "bin": { "comment-checker": "cli.js" } }, "sha512-Ret0qHtgDhEemQYNduqSyaihFWJSOKae4YW3sUHS680G8K57CsRUkK6Gs4kbzDuWqiNUYs254+qu5hZZZSEKUA=="],
+    "@code-yeongyu/comment-checker": ["@code-yeongyu/comment-checker@0.8.2", "", { "optionalDependencies": { "@code-yeongyu/comment-checker-darwin-arm64": "0.8.2", "@code-yeongyu/comment-checker-darwin-x64": "0.8.2", "@code-yeongyu/comment-checker-linux-arm64": "0.8.2", "@code-yeongyu/comment-checker-linux-x64": "0.8.2", "@code-yeongyu/comment-checker-win32-x64": "0.8.2" }, "bin": { "comment-checker": "cli.js" } }, "sha512-utUhfCPdLNB54Z/41lbvJkzZNbgx3e0/AyoBhji1Z4i7A32vsPSR2w/GyVcNIvTUrfHaKXuq8YCBdni+ifflVw=="],
+
+    "@code-yeongyu/comment-checker-darwin-arm64": ["@code-yeongyu/comment-checker-darwin-arm64@0.8.2", "", { "os": "darwin", "cpu": "arm64" }, "sha512-5ofWre3ArnVsuw8ijUIoPEWGPh4GnWZA4e+VULpasbVDQ9gx5rXWo31F7w/1KoPyWXM9qjWRVeu5GQg9gSh/lw=="],
+
+    "@code-yeongyu/comment-checker-darwin-x64": ["@code-yeongyu/comment-checker-darwin-x64@0.8.2", "", { "os": "darwin", "cpu": "x64" }, "sha512-X53n8JgLLp3p/ZwxWfq47HgIduc9TNcqiYcRUNCgs5LUEtF6bPIO9455YhOAnvgrE1wKKHXdndIE53fUfgn/sQ=="],
+
+    "@code-yeongyu/comment-checker-linux-arm64": ["@code-yeongyu/comment-checker-linux-arm64@0.8.2", "", { "os": "linux", "cpu": "arm64" }, "sha512-mU4et025mpSQqEjV1AEhRWQ7gwo0O/usiWpUUNVCwSeWFVS/5Wo8oUkGA1/pprbnu20ua9gm6ga0StKfizgv7w=="],
+
+    "@code-yeongyu/comment-checker-linux-x64": ["@code-yeongyu/comment-checker-linux-x64@0.8.2", "", { "os": "linux", "cpu": "x64" }, "sha512-5Rcz32vA/X2k3opejxeoYpgMJB3z0NSnj1mnBwzaYUjEFScdnMgPdcAT8NTiXbgYXt2vyXJZ8UoJlLudHGffKg=="],
+
+    "@code-yeongyu/comment-checker-win32-x64": ["@code-yeongyu/comment-checker-win32-x64@0.8.2", "", { "os": "win32", "cpu": "x64" }, "sha512-uE+NyPK7vWz18ieN2TsKENtbJyub6EyRXhyOiC8mvoC+XdutG7kXINmv2S8/K4g75skBd3IaFGviQ8Mg5L/Ybg=="],
 
     "@earendil-works/chord": ["@earendil-works/chord@0.87.1", "", { "dependencies": { "esbuild": "0.28.2" } }, "sha512-bg7IkJGFcEaMqqYgOGUiq5Ky9RghpRfrlZ8I/v/1b4bBZ02A7t3E+6uhPRbadwWb/kWsnVFbZsqOKRN4a3LLCg=="],
 
