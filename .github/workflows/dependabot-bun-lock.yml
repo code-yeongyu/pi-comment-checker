@@ -57,4 +57,19 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "build(deps): refresh bun.lock" -- bun.lock
           git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${BRANCH}"
-          gh workflow run ci.yml --ref "$BRANCH"
+          # The push creates this commit's pull_request CI run, held for approval because github-actions[bot] counts as a
+          # first-time contributor. Approving it attaches the required checks to the PR; if it cannot be found or approved,
+          # a dispatched run still checks the commit, though its checks do not show on the PR.
+          sha=$(git rev-parse HEAD)
+          run_id=""
+          for _ in $(seq 1 12); do
+            run_id=$(gh run list --workflow ci.yml --commit "$sha" --event pull_request --json databaseId --jq '.[0].databaseId // empty')
+            [ -n "$run_id" ] && break
+            sleep 5
+          done
+          if [ -n "$run_id" ] && gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}/approve"; then
+            echo "approved pull_request run ${run_id}"
+          else
+            echo "::warning::could not approve the pull_request run (id: ${run_id:-none}); dispatching ci.yml instead"
+            gh workflow run ci.yml --ref "$BRANCH"
+          fi
