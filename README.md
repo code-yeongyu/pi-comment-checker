@@ -122,7 +122,7 @@ npm test
 ## Branch rules and releases
 
 - `main` is protected by `.github/branch-ruleset.json`.
-- CI runs Bun 1.4.2 with Node 22 and 24 on Ubuntu and macOS, plus an npm-consumer job.
+- CI runs Bun 1.4.4 with Node 22 and 24 on Ubuntu and macOS, plus an npm-consumer job.
 - Releases are GitHub Releases tagged as `v<semver>`.
 - Publishing runs from the `publish` workflow after a GitHub Release is published.
 
